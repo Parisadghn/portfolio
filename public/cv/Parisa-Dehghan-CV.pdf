@@ -1,0 +1,101 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+BT /F2 20 Tf 50 728.0 Td (PARISA DEGHAN) Tj ET
+BT /F1 10 Tf 50 702.0 Td (Research & Development Specialist  |  IoT  |  Scientific Computing  |  Machine Learning) Tj ET
+BT /F1 9 Tf 50 688.0 Td (ssparisa@gmail.com  -  Tehran, Iran  -  github.com/Parisadghn  -  linkedin.com/in/parisa-dehghan-697895249) Tj ET
+BT /F2 12 Tf 50 657.0 Td (SUMMARY) Tj ET
+BT /F1 9.5 Tf 50 639.0 Td (Research and Development and IoT Specialist. M.Sc. in Particle Physics and Field Theory with a strong) Tj ET
+BT /F1 9.5 Tf 50 625.5 Td (foundation in data analysis, machine learning, quantum field theory, numerical simulations, high-performance) Tj ET
+BT /F1 9.5 Tf 50 612.0 Td (computing, and scientific machine learning. Proficient in Python, C++, and SQL. Experienced in algorithm) Tj ET
+BT /F1 9.5 Tf 50 598.5 Td (design, low-power ML deployment, IoT systems, micro/nano fabrication, sensor development, and complex-system research.) Tj ET
+BT /F2 12 Tf 50 567.0 Td (EXPERIENCE) Tj ET
+BT /F2 10 Tf 50 549.0 Td (Research and Development Specialist - Intelligent Micronano Sensors \(Lotus IMNS\)     Since May 2024) Tj ET
+BT /F1 9.5 Tf 50 535.0 Td (- AFM sensor development: silicon wafer fabrication, UV lithography, RIE, wet etching, PVD gold deposition.) Tj ET
+BT /F1 9.5 Tf 50 521.5 Td (- High-aspect-ratio tip fabrication; SEM, AFM, and optical microscopy characterization.) Tj ET
+BT /F1 9.5 Tf 50 508.0 Td (- COMSOL multiphysics simulation; Python data analysis; ML-oriented process datasets.) Tj ET
+BT /F1 9.5 Tf 50 494.5 Td (- Microneedle patch development: silicon microneedle masters, PDMS mold fabrication, hydroxyapatite \(HA\)) Tj ET
+BT /F1 9.5 Tf 50 481.0 Td (  loading, centrifugation, PVP formulations; mechanical optimization of flexibility and brittleness.) Tj ET
+BT /F1 9.5 Tf 50 467.5 Td (- CATIA centrifuge component design; CorelDRAW mask design.) Tj ET
+BT /F2 10 Tf 50 440.0 Td (Internet of Things Specialist - Iran IoT Expansion Center) Tj ET
+BT /F1 9.5 Tf 50 426.0 Td (- Smart health monitoring: GPS, blood pressure, SpO2, and fall detection from smart wristbands.) Tj ET
+BT /F1 9.5 Tf 50 412.5 Td (- LoRa / MQTT telemetry; Node-RED device simulation; Node.js backend services.) Tj ET
+BT /F1 9.5 Tf 50 399.0 Td (- Data validation and timestamping into SQL; real-time web monitoring interface.) Tj ET
+BT /F2 10 Tf 50 371.5 Td (IoT Instructor - Iran IoT Expansion Center) Tj ET
+BT /F1 9.5 Tf 50 357.5 Td (- 6-week online introductory IoT course for students aged 8-12.) Tj ET
+BT /F2 12 Tf 50 326.0 Td (EDUCATION) Tj ET
+BT /F2 10 Tf 50 308.0 Td (M.Sc. Particle Physics and Field Theory - Shahid Beheshti University     2021-2024     GPA 14.13/20) Tj ET
+BT /F1 9.5 Tf 50 294.0 Td (Quantum Field Theory II 18.23/20 - Gravity I 17/20 - Advanced Quantum Mechanics 16.02/20) Tj ET
+BT /F1 9.5 Tf 50 280.5 Td (Advanced Statistical Mechanics 15.9/20 - Geometry and Topology 15/20) Tj ET
+BT /F2 10 Tf 50 253.0 Td (B.Sc. Physics - Alzahra University     2017-2021     GPA 15.66/20) Tj ET
+BT /F1 9.5 Tf 50 239.0 Td (Numerical Calculations 4/4 - Stochastic Processes 4/4 - Advanced Quantum Mechanics I 4/4) Tj ET
+BT /F1 9.5 Tf 50 225.5 Td (Computer Programming \(Theoretical & Practical\) 4/4) Tj ET
+BT /F2 10 Tf 50 198.0 Td (Diploma, Mathematics and Physics - Motahare High School     GPA 19.38/20) Tj ET
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 7 0 R /F2 8 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+BT /F2 12 Tf 50 728.0 Td (SKILLS) Tj ET
+BT /F2 9.5 Tf 50 710.0 Td (Programming:) Tj ET
+BT /F1 9.5 Tf 50 696.5 Td (  Python, C, C++, C#, SQL, JavaScript, Fortran, MATLAB) Tj ET
+BT /F2 9.5 Tf 50 683.0 Td (Machine Learning:) Tj ET
+BT /F1 9.5 Tf 50 669.5 Td (  TensorFlow, Keras, OpenCV, Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn) Tj ET
+BT /F2 9.5 Tf 50 656.0 Td (Scientific Computing:) Tj ET
+BT /F1 9.5 Tf 50 642.5 Td (  COMSOL, STAR-CCM+, Rivet, Docker, Monte Carlo, SPH, Stochastic Differential Equations) Tj ET
+BT /F2 9.5 Tf 50 629.0 Td (IoT:) Tj ET
+BT /F1 9.5 Tf 50 615.5 Td (  MQTT, LoRaWAN, Node-RED, Node.js, Raspberry Pi) Tj ET
+BT /F2 9.5 Tf 50 602.0 Td (Databases:) Tj ET
+BT /F1 9.5 Tf 50 588.5 Td (  SQL Server, Oracle, SQLite, MySQL) Tj ET
+BT /F2 9.5 Tf 50 575.0 Td (Design:) Tj ET
+BT /F1 9.5 Tf 50 561.5 Td (  CATIA, AutoCAD, CorelDraw, Adobe Illustrator, Adobe InDesign, Photoshop, Lightroom) Tj ET
+BT /F2 12 Tf 50 530.0 Td (SELECTED PROJECTS) Tj ET
+BT /F1 9.5 Tf 50 512.0 Td (Environmental Monitoring \(Raspberry Pi\) - Bubble Rise Simulation \(SPH + STAR-CCM+ + Python\)) Tj ET
+BT /F1 9.5 Tf 50 498.5 Td (Graph Convolutional Networks \(research paper\) - Phase Transition in the Ising Model \(Metropolis Monte Carlo\)) Tj ET
+BT /F1 9.5 Tf 50 485.0 Td (Stock Price Prediction \(RNN / LSTM / BiLSTM\) - Anomaly Detection \(autoencoder\)) Tj ET
+BT /F1 9.5 Tf 50 471.5 Td (Topological Data Analysis \(persistent homology\) - Particle Accelerator Simulation \(Rivet / Docker\)) Tj ET
+BT /F1 9.5 Tf 50 458.0 Td (Image Classification \(TinyML: 50% model-size reduction at >90% accuracy\)) Tj ET
+BT /F1 9.5 Tf 50 444.5 Td (Sentiment Analysis - Cryptocurrency Classification - Breast Cancer Detection - MRI Image Analysis) Tj ET
+BT /F1 9.5 Tf 50 431.0 Td (Stochastic Thermodynamics - Knapsack Problem - Huffman Coding - Minimum Spanning Tree) Tj ET
+BT /F1 9.5 Tf 50 417.5 Td (Hamshahri Newspaper Dataset - Calculator / To-Do List / Library Management applications) Tj ET
+BT /F2 12 Tf 50 386.0 Td (CERTIFICATIONS) Tj ET
+BT /F1 9.5 Tf 50 368.0 Td (SANS SEC505 - Network+ - Security+ \(LIAN Group, Sep 2025\)) Tj ET
+BT /F1 9.5 Tf 50 354.5 Td (Certified Ethical Hacker \(CEH\), Jul 2025 - Software Test Bootcamp, May 2024) Tj ET
+BT /F1 9.5 Tf 50 341.0 Td (DESY Remote Summer School, 2023 - Stanford Algorithms \(Coursera\), 2023) Tj ET
+BT /F1 9.5 Tf 50 327.5 Td (ICTP Workshop on Stochastic Thermodynamics, May 2023) Tj ET
+BT /F1 9.5 Tf 50 314.0 Td (Applied Machine Learning in Python \(University of Michigan / Coursera\), Oct 2022) Tj ET
+BT /F1 9.5 Tf 50 300.5 Td (Workshop on Topological Data Analysis \(SBU\), Aug 2022 - Python Course \(Alzahra University\), Oct 2021) Tj ET
+BT /F1 9.5 Tf 50 287.0 Td (Introduction to C - Introduction to C# - Intermediate SQL) Tj ET
+BT /F2 12 Tf 50 255.5 Td (LANGUAGES) Tj ET
+BT /F1 9.5 Tf 50 237.5 Td (Persian \(native\) - English \(fluent\) - French \(intermediate\)) Tj ET
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000257 00000 n 
+0000003564 00000 n 
+0000003700 00000 n 
+0000006635 00000 n 
+0000006732 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+6834
+%%EOF

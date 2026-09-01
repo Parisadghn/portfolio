@@ -1,0 +1,61 @@
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 0 64px;
+  overflow: hidden;
+}
+#hero-canvas { position: absolute; inset: 0; z-index: 0; opacity: 0.9; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 48px;
+  align-items: end;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-eyebrow::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: pulse 2.4s infinite; }
+@keyframes pulse { 50% { opacity: 0.4; } }
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 14px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero-roles { font-family: var(--font-mono); font-size: clamp(0.78rem, 1.6vw, 0.95rem); color: var(--text-dim); letter-spacing: 0.05em; margin-bottom: 20px; }
+.hero-tagline { max-width: 560px; color: var(--text-dim); font-size: 1.02rem; margin-bottom: 30px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.spec-panel {
+  border: 1px solid var(--border-bright);
+  background: rgba(16, 24, 37, 0.72);
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--glow);
+}
+.spec-row { padding: 14px 18px; border-bottom: 1px solid var(--border); }
+.spec-row:last-child { border-bottom: none; }
+.spec-title { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.24em; color: var(--accent); margin-bottom: 8px; }
+.spec-items { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 3px 14px; }
+.spec-items li { font-size: 0.82rem; color: var(--text-dim); position: relative; padding-left: 14px; }
+.spec-items li::before { content: '▸'; position: absolute; left: 0; color: var(--accent-dim); font-size: 0.7rem; }
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero { padding-top: 96px; }
+}

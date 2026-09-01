@@ -1,0 +1,66 @@
+/* ── Projects explorer ─────────────────────────────────────── */
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.filter-btn {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em;
+  padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--border-bright); background: transparent; color: var(--text-dim);
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--accent-dim); color: var(--text); }
+.filter-btn.active { background: rgba(64, 208, 232, 0.14); border-color: var(--accent); color: var(--accent); }
+
+.flag-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 24px; }
+@media (max-width: 800px) { .flag-grid { grid-template-columns: 1fr; } }
+.flag-card {
+  border: 1px solid var(--border-bright); background: var(--panel);
+  border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+.flag-card:hover { border-color: var(--accent-dim); box-shadow: var(--glow); transform: translateY(-3px); }
+.flag-viz { background: var(--bg-2); border-bottom: 1px solid var(--border); padding: 8px; }
+.flag-viz svg { width: 100%; height: 130px; display: block; }
+.flag-body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.flag-body h3 { font-size: 1.06rem; }
+.flag-desc { color: var(--text-dim); font-size: 0.9rem; }
+.flag-detail { color: var(--text-faint); font-size: 0.82rem; padding-left: 18px; display: grid; gap: 4px; }
+.flag-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+
+.compact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 1000px) { .compact-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .compact-grid { grid-template-columns: 1fr; } }
+.compact-card {
+  border: 1px solid var(--border); background: var(--panel);
+  border-radius: 8px; padding: 14px 16px;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.compact-card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+.compact-card h4 { font-size: 0.88rem; margin-bottom: 4px; }
+.compact-card p { color: var(--text-faint); font-size: 0.76rem; line-height: 1.5; }
+.compact-cats { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.mini-chip { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-dim); }
+
+/* ── Skills ────────────────────────────────────────────────── */
+.skill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 900px) { .skill-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .skill-grid { grid-template-columns: 1fr; } }
+.skill-box { border: 1px solid var(--border); border-radius: 8px; background: var(--panel); padding: 18px; }
+.skill-box h3 { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+.skill-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-toggle { background: none; border: none; color: var(--text-faint); font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; }
+.skill-toggle:hover { color: var(--accent); }
+.extra-anim { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } }
+
+/* ── Certifications ────────────────────────────────────────── */
+.cert-wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .cert-wall { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .cert-wall { grid-template-columns: 1fr; } }
+.cert-item {
+  border: 1px solid var(--border); border-left: 2px solid var(--accent-dim);
+  border-radius: 6px; background: var(--panel); padding: 14px 16px;
+  transition: border-color 0.25s;
+}
+.cert-item:hover { border-left-color: var(--accent); }
+.cert-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 3px; }
+.cert-issuer { font-size: 0.78rem; color: var(--text-dim); }
+.cert-date { font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-faint); letter-spacing: 0.08em; }
