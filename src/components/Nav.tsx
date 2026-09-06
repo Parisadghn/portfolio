@@ -13,7 +13,7 @@ export function Nav() {
     <nav className="nav" aria-label="Primary">
       <div className="nav-inner">
         <a href="#top" className="nav-brand">
-          PARISA<span>·</span>DEGHAN<span style={{ color: 'var(--text-faint)' }}> // R&D</span>
+          PARISA<span>·</span>DEHGHAN<span style={{ color: 'var(--text-faint)' }}> // R&D</span>
         </a>
         <ul className="nav-links">
           {links.map((l) => (
