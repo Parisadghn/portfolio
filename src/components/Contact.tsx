@@ -46,7 +46,7 @@ export function Footer() {
     <footer>
       <div className="container footer-inner">
         <div>
-          <div className="footer-brand">PARISA DEGHAN</div>
+          <div className="footer-brand">PARISA DEHGHAN</div>
           <div className="footer-tag">Research • Engineering • Computation</div>
         </div>
         <div className="footer-links">
