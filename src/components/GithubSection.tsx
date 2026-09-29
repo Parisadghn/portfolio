@@ -28,7 +28,7 @@ export function GithubSection() {
   return (
     <Section
       id="code"
-      kicker="09 · Open Source"
+      kicker="10 · Open Source"
       title="Code & Research"
       intro="Public repositories and open research implementations."
     >

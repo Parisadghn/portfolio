@@ -52,7 +52,7 @@ export function Landscape() {
   return (
     <Section
       id="landscape"
-      kicker="08 · Signature Map"
+      kicker="09 · Signature Map"
       title="Research Landscape"
       intro="How my domains connect — hover or focus a node to explore the technologies behind it."
     >

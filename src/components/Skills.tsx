@@ -35,7 +35,7 @@ export function Skills() {
   return (
     <Section
       id="skills"
-      kicker="06 · Toolkit"
+      kicker="07 · Toolkit"
       title="Technical Skills"
       intro="Categorized technology matrix — click a category to reveal additional tools."
     >
@@ -54,7 +54,7 @@ export function Certifications() {
   return (
     <Section
       id="certifications"
-      kicker="07 · Credentials"
+      kicker="08 · Credentials"
       title="Certifications & Training"
     >
       <div className="cert-wall">

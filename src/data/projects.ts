@@ -34,7 +34,7 @@ export interface Project {
   tech: string[]
   link?: string
   linkLabel?: string
-  viz?: 'bubbles' | 'graph' | 'lattice' | 'chart' | 'autoencoder' | 'persistence' | 'detector' | 'pipeline' | 'equation' | 'twin' | 'band'
+  viz?: 'bubbles' | 'graph' | 'lattice' | 'chart' | 'autoencoder' | 'persistence' | 'detector' | 'pipeline' | 'equation' | 'twin' | 'band' | 'rotor'
 }
 
 export const projectCategories: ('All' | ProjectCategory)[] = [
@@ -192,6 +192,24 @@ export const projects: Project[] = [
     link: '[ADD PROJECT LINK]',
     linkLabel: 'Repository',
     viz: 'band',
+  },
+  // ── CAD / mechanism ─────────────────────────────────────────
+  {
+    title: 'Centrifuge Rotor — CATIA Mechanism',
+    categories: ['Simulation'],
+    flagship: true,
+    description:
+      'A 4-place swinging-bucket rotor modelled as a CATIA V5 assembly, animated from the real swing equilibrium tan θ = ω²r / g.',
+    detail: [
+      'Assembly structure read from the .CATProduct: a “+”-shaped header plus two bucket sub-assemblies mirrored by two Assembly Symmetry features into four arms.',
+      'The bucket hinge is the assembly’s angular constraint — driven from 0° (hanging) to 90° (running) at the mechanical stop.',
+      'Interactive viewer: rotor speed drives the swing transient, RCF and the constraint angle, with a live instrument readout.',
+      'Ships with a CATScript macro and a DMU Kinematics setup guide so the CATProduct itself can be played back in CATIA.',
+    ],
+    tech: ['CATIA V5', 'Assembly design', 'Kinematics', 'CATScript', 'React + SVG'],
+    link: '#centrifuge',
+    linkLabel: 'Open the live mechanism',
+    viz: 'rotor',
   },
   // ── Compact cards ───────────────────────────────────────────
   {

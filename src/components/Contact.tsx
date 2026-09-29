@@ -3,7 +3,7 @@ import { Section, Icons } from './ui'
 
 export function Contact() {
   return (
-    <Section id="contact" kicker="10 · Contact" title="Let's build something measurable">
+    <Section id="contact" kicker="11 · Contact" title="Let's build something measurable">
       <div className="contact-box">
         <h2>{profile.name}</h2>
         <p style={{ color: 'var(--text-dim)' }}>

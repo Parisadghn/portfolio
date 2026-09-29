@@ -5,12 +5,24 @@ import { Viz } from './Viz'
 
 function LinkOrPlaceholder({ project }: { project: Project }) {
   if (!project.link) return null
-  const isPlaceholder = project.link.startsWith('[')
-  return isPlaceholder ? (
-    <span className="chip">{project.linkLabel ?? 'Link'}: {project.link}</span>
-  ) : (
+  const label = project.linkLabel ?? 'Link'
+  if (project.link.startsWith('[')) {
+    return (
+      <span className="chip">
+        {label}: {project.link}
+      </span>
+    )
+  }
+  if (project.link.startsWith('#')) {
+    return (
+      <a className="chip chip-accent" href={project.link}>
+        {label} →
+      </a>
+    )
+  }
+  return (
     <a className="chip chip-accent" href={project.link} target="_blank" rel="noreferrer">
-      {project.linkLabel ?? 'Link'} ↗
+      {label} ↗
     </a>
   )
 }

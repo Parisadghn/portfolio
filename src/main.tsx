@@ -6,6 +6,7 @@ import './styles/hero.css'
 import './styles/sections.css'
 import './styles/modules.css'
 import './styles/modules2.css'
+import './styles/centrifuge.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

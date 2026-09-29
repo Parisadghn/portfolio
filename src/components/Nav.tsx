@@ -3,6 +3,7 @@ const links = [
   { href: '#research', label: 'Research' },
   { href: '#experience', label: 'Experience' },
   { href: '#projects', label: 'Projects' },
+  { href: '#centrifuge', label: 'CAD' },
   { href: '#skills', label: 'Skills' },
   { href: '#landscape', label: 'Landscape' },
   { href: '#contact', label: 'Contact' },

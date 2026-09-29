@@ -200,6 +200,29 @@ export function Viz({ kind }: { kind: string }) {
         </>,
         'TFET energy-band diagram with source-to-channel tunneling',
       )
+    case 'rotor':
+      return wrap(
+        <>
+          <g transform="translate(200 62)">
+            <g>
+              <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="12s" repeatCount="indefinite" />
+              {[0, 90, 180, 270].map((a) => (
+                <g key={a} transform={`rotate(${a})`}>
+                  <rect x="14" y="-8" width="72" height="16" rx="4" fill="rgba(150,162,174,0.42)" stroke={D} strokeWidth="0.8" />
+                  <line x1="86" y1="-13" x2="86" y2="13" stroke={A} strokeWidth="1.8" />
+                  <rect x="90" y="-9" width="46" height="18" rx="5" fill="rgba(64,208,232,0.18)" stroke={A} strokeWidth="1.1" />
+                </g>
+              ))}
+              <circle r="15" fill="#101825" stroke={A} strokeWidth="1.2" />
+              <circle r="4.5" fill={A} opacity="0.75" />
+            </g>
+          </g>
+          <path d="M60 118 Q 200 104 340 118" fill="none" stroke={V} strokeWidth="1" strokeDasharray="3 4" />
+          <text x="24" y="24" fill="#5c7186" fontSize="9" fontFamily="monospace">4-place swinging-bucket rotor</text>
+          <text x="24" y="94" fill={A} fontSize="9" fontFamily="monospace">θ → 90° at speed</text>
+        </>,
+        'Spinning centrifuge rotor with four buckets swung out to 90 degrees',
+      )
     default: {
       /* pipeline */
       const labels = ['PI', 'SNS', 'DSP', 'ML', 'OUT']

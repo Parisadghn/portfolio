@@ -5,6 +5,7 @@ import { ResearchAreas } from './components/ResearchAreas'
 import { Experience } from './components/Experience'
 import { Education } from './components/Education'
 import { Projects } from './components/Projects'
+import { Centrifuge } from './components/Centrifuge'
 import { Skills, Certifications } from './components/Skills'
 import { Landscape } from './components/Landscape'
 import { GithubSection } from './components/GithubSection'
@@ -37,6 +38,7 @@ export default function App() {
         <Experience />
         <Education />
         <Projects />
+        <Centrifuge />
         <Skills />
         <Certifications />
         <Landscape />

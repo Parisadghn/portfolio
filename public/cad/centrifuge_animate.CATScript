@@ -1,0 +1,237 @@
+'==============================================================================
+' centrifuge_animate.CATScript        -   CATIA V5 macro (CATScript / VBScript)
+'
+' Makes centrifuge.CATProduct dynamic:
+'   1. swings every bucket ("Bugget") sub-assembly from 0 deg to 90 deg
+'   2. spins the "+"-shaped rotor header about the rotor axis
+'
+' HOW TO RUN
+'   Tools > Macro > Macros... > (Type: CATScript) > Run   ->  centrifuge_animate
+'   The assembly must be open and in DESIGN MODE.
+'
+' NOTE ON THE SPIN LOOP
+'   CATScript runs on the VBScript engine, which has no DoEvents/Sleep, so the
+'   3D view may only repaint between steps. If you want a smooth, interruptible
+'   animation, paste the VBA variant from CATIA-DYNAMIC-SETUP.md into
+'   Tools > Macro > Visual Basic Editor - it uses DoEvents + Sleep.
+'   The geometry work below (swing + spin) is identical in both.
+'
+' WHAT IT TOUCHES
+'   - The bucket angle is driven through the assembly's own angular constraint
+'     (the "Angle" constraint of the bucket sub-assembly) so the design's real
+'     hinge is used and mirrored instances stay symmetric.
+'   - The spin is applied with Position.GetComponents / SetComponents on the
+'     children of the root product - no geometry is modified.
+'
+' Verified API baseline: Position.GetComponents/SetComponents take a 12-element
+' array - x-axis(0..2), y-axis(3..5), z-axis(6..8), origin(9..11), in millimetres
+' (CATIA V5 document units), angles in radians.
+'==============================================================================
+Language="VBSCRIPT"
+
+' -- user settings ------------------------------------------------------------
+Const SWING_TO_DEG  = 90      ' bucket pivot angle to drive (0 = hanging, 90 = horizontal)
+Const SPIN_STEP_DEG = 6       ' rotor advance per animation frame (degrees)
+Const SPIN_FRAME_MS = 40      ' delay per frame (ms)  -> ~1.5 s per revolution
+Const TURNS         = 1       ' how many full revolutions to animate
+Const AUTO_AXIS     = True    ' derive the rotor axis from the bucket positions
+Const AXIS_X        = 0       ' rotor axis, used when AUTO_AXIS = False  (mm)
+Const AXIS_Y        = 0
+
+' -- entry point --------------------------------------------------------------
+Sub CATMain()
+    Dim oDoc, oRoot
+    On Error Resume Next
+    Set oDoc = CATIA.ActiveDocument
+    If Err.Number <> 0 Then
+        MsgBox "Open centrifuge.CATProduct first, then run the macro.", 48, "centrifuge_animate"
+        Exit Sub
+    End If
+    Set oRoot = oDoc.Product
+    If Err.Number <> 0 Then
+        MsgBox "The active document is not a product (.CATProduct).", 48, "centrifuge_animate"
+        Exit Sub
+    End If
+    On Error GoTo 0
+
+    ' 1 - buckets to 90 deg (drives the Angle constraint; falls back to the hinge axis)
+    SwingBuckets oRoot, SWING_TO_DEG
+
+    ' 2 - spin the rotor
+    Dim cx, cy
+    If AUTO_AXIS Then
+        ResolveAxis oRoot, cx, cy
+    Else
+        cx = AXIS_X : cy = AXIS_Y
+    End If
+    SpinTurns oRoot, cx, cy, TURNS
+
+    MsgBox "Done: buckets at " & SWING_TO_DEG & " deg, rotor spun " & TURNS & " turn(s)." & vbCrLf & _
+           "If the assembly looks stale, click Update All (the assembly may need a refresh).", _
+           64, "centrifuge_animate"
+End Sub
+
+' True when the instance name looks like a bucket (Bugget / Bucket ...)
+Function IsBucketInstance(sName)
+    IsBucketInstance = (InStr(1, sName, "Bugget", vbTextCompare) > 0) _
+                    Or (InStr(1, sName, "Bucket", vbTextCompare) > 0)
+End Function
+
+' Collects every direct/indirect child whose name matches a bucket.
+Sub CollectBuckets(oProd, oList)
+    Dim oChild
+    For Each oChild In oProd.Products
+        If IsBucketInstance(oChild.Name) Then
+            oList.Add oChild
+        Else
+            CollectBuckets oChild, oList
+        End If
+    Next
+End Sub
+
+' Rotor axis = centroid of the bucket instances (a 2- or 4-fold layout is
+' symmetric about the rotor axis, so the mean xy is the axis).
+Sub ResolveAxis(oRoot, ByRef cx, ByRef cy)
+    Dim oP, pos(11), n, col
+    Set col = New Collection
+    CollectBuckets oRoot, col
+    cx = 0 : cy = 0 : n = 0
+    On Error Resume Next
+    For Each oP In col
+        oP.Position.GetComponents pos
+        cx = cx + pos(9)
+        cy = cy + pos(10)
+        n = n + 1
+    Next
+    On Error GoTo 0
+    If n > 0 Then
+        cx = cx / n
+        cy = cy / n
+    End If
+End Sub
+
+' -- rotation helpers (Rodrigues, about an arbitrary axis through a point) -----
+Function Rx(ByVal vx, ByVal vy, ByVal vz, ByVal kx, ByVal ky, ByVal kz, ByVal c, ByVal s)
+    Rx = vx * c + (ky * vz - kz * vy) * s + kx * (kx * vx + ky * vy + kz * vz) * (1 - c)
+End Function
+Function Ry(ByVal vx, ByVal vy, ByVal vz, ByVal kx, ByVal ky, ByVal kz, ByVal c, ByVal s)
+    Ry = vy * c + (kz * vx - kx * vz) * s + ky * (kx * vx + ky * vy + kz * vz) * (1 - c)
+End Function
+Function Rz(ByVal vx, ByVal vy, ByVal vz, ByVal kx, ByVal ky, ByVal kz, ByVal c, ByVal s)
+    Rz = vz * c + (kx * vy - ky * vx) * s + kz * (kx * vx + ky * vy + kz * vz) * (1 - c)
+End Function
+
+' Rotates one product instance about the axis (point P, direction K) by deg.
+Sub RotateAboutAxis(oProd, ByVal px, ByVal py, ByVal pz, _
+                    ByVal kx, ByVal ky, ByVal kz, ByVal deg)
+    Dim pos(11), a, c, s, ox, oy, oz
+    Dim x1, y1, z1, x2, y2, z2
+
+    oProd.Position.GetComponents pos
+    a = deg * 4 * Atn(1) / 180
+    c = Cos(a) : s = Sin(a)
+
+    ' origin: rotate (origin ? P) then put P back
+    ox = pos(9) - px : oy = pos(10) - py : oz = pos(11) - pz
+    x1 = Rx(ox, oy, oz, kx, ky, kz, c, s)
+    y1 = Ry(ox, oy, oz, kx, ky, kz, c, s)
+    z1 = Rz(ox, oy, oz, kx, ky, kz, c, s)
+    pos(9)  = x1 + px
+    pos(10) = y1 + py
+    pos(11) = z1 + pz
+
+    ' x-axis
+    x2 = Rx(pos(0), pos(1), pos(2), kx, ky, kz, c, s)
+    y2 = Ry(pos(0), pos(1), pos(2), kx, ky, kz, c, s)
+    z2 = Rz(pos(0), pos(1), pos(2), kx, ky, kz, c, s)
+    pos(0) = x2 : pos(1) = y2 : pos(2) = z2
+
+    ' y-axis
+    x2 = Rx(pos(3), pos(4), pos(5), kx, ky, kz, c, s)
+    y2 = Ry(pos(3), pos(4), pos(5), kx, ky, kz, c, s)
+    z2 = Rz(pos(3), pos(4), pos(5), kx, ky, kz, c, s)
+    pos(3) = x2 : pos(4) = y2 : pos(5) = z2
+
+    ' z-axis
+    x2 = Rx(pos(6), pos(7), pos(8), kx, ky, kz, c, s)
+    y2 = Ry(pos(6), pos(7), pos(8), kx, ky, kz, c, s)
+    z2 = Rz(pos(6), pos(7), pos(8), kx, ky, kz, c, s)
+    pos(6) = x2 : pos(7) = y2 : pos(8) = z2
+
+    oProd.Position.SetComponents pos
+End Sub
+
+' -- buckets: drive the design's own angular constraint -----------------------
+Sub SwingBuckets(oRoot, ByVal deg)
+    Dim col, oP, oCst, n, i
+    Dim pos(11), r, kx, ky
+    Set col = New Collection
+    CollectBuckets oRoot, col
+
+    ' preferred path: the assembly's angular constraint IS the bucket hinge
+    n = 0
+    On Error Resume Next
+    For Each oP In col
+        Set oCst = oP.Connections("CATIAConstraints")
+        For i = 1 To oCst.Count
+            If InStr(1, oCst.Item(i).Name, "Angle", vbTextCompare) > 0 Then
+                oCst.Item(i).Value = deg
+                n = n + 1
+            End If
+        Next
+    Next
+    On Error GoTo 0
+
+    If n = 0 Then
+        ' fallback: rotate each bucket about the tangential hinge axis through
+        ' its own origin - a geometric approximation of the swing
+        On Error Resume Next
+        For Each oP In col
+            oP.Position.GetComponents pos
+            ' hinge axis = tangential direction at the bucket's angular position
+            kx = -pos(10) : ky = pos(9)
+            r = Sqr(kx * kx + ky * ky)
+            If r > 0.0001 Then
+                kx = kx / r : ky = ky / r
+                RotateAboutAxis oP, pos(9), pos(10), pos(11), kx, ky, 0, deg
+            End If
+        Next
+        On Error GoTo 0
+    End If
+
+    RefreshView
+End Sub
+
+' -- rotor spin --------------------------------------------------------------
+Sub SpinTurns(oRoot, ByVal cx, ByVal cy, ByVal turns)
+    Dim total, done, oChild
+    total = turns * 360
+    done = 0
+    On Error Resume Next
+    Do While done < total
+        For Each oChild In oRoot.Products
+            RotateAboutAxis oChild, cx, cy, 0, 0, 0, 1, SPIN_STEP_DEG
+        Next
+        done = done + SPIN_STEP_DEG
+        RefreshView
+        PauseFrame
+    Loop
+    On Error GoTo 0
+End Sub
+
+' Best-effort repaint of the 3D view (method names differ between releases).
+Sub RefreshView()
+    On Error Resume Next
+    CATIA.ActiveWindow.ActiveViewer.Update
+    On Error GoTo 0
+End Sub
+
+' CATScript has no Sleep - short busy wait. For a smooth loop use the VBA variant.
+Sub PauseFrame()
+    Dim t
+    t = Timer
+    Do While (Timer - t) * 1000 < SPIN_FRAME_MS
+    Loop
+End Sub
+
+
