@@ -32,7 +32,7 @@ export const heroPanel = [
   },
   {
     title: 'PROGRAMMING',
-    items: ['Python', 'C / C++', 'SQL', 'JavaScript', 'MATLAB'],
+    items: ['Python', 'C / C++', 'SQL', 'JavaScript', 'MATLAB', 'COMSOL', 'C#/.NET', 'Penteration testing'],
   },
 ]
 
