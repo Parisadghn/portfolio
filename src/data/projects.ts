@@ -81,8 +81,8 @@ export const projects: Project[] = [
     description: 'Presentation on GCNs and their applications in complex systems.',
     detail: ['Graph neural networks operating on irregular, relational structure.', 'Applications to complex-system analysis.'],
     tech: ['GCN', 'Graph Neural Networks', 'Complex Systems'],
-    link: '[ADD PAPER LINK]',
-    linkLabel: 'Paper',
+    link: '[ADD POWERPOINT LINK]',
+    linkLabel: 'Presentation',
     viz: 'graph',
   },
   {
