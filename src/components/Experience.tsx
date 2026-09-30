@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { experience } from '../data/content'
+import type { GalleryImage } from '../data/content'
 import { lotusExperience } from '../data/experience'
+import type { LotusProject } from '../data/experience'
 import { Section, Icons } from './ui'
 
 function Flow({ steps }: { steps: string[] }) {
@@ -13,6 +15,153 @@ function Flow({ steps }: { steps: string[] }) {
         </span>
       ))}
     </div>
+  )
+}
+
+function ProcessStepper({ steps }: { steps: string[] }) {
+  return (
+    <ol className="lotus-steps" aria-label="Fabrication flow">
+      {steps.map((s, i) => (
+        <li key={s}>
+          <span className="lotus-step-index" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span className="lotus-step-label">{s}</span>
+          {i < steps.length - 1 && <span className="lotus-step-rail" aria-hidden="true" />}
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+function Mosaic({ images, onOpen }: { images: GalleryImage[]; onOpen: (index: number) => void }) {
+  return (
+    <div className="lotus-mosaic" role="group" aria-label="Project photographs — activate to enlarge">
+      {images.map((img, i) => (
+        <button
+          key={img.src}
+          type="button"
+          className={`lotus-tile tile-${i % 6}`}
+          onClick={() => onOpen(i)}
+          aria-label={`Enlarge photo ${i + 1} of ${images.length}: ${img.alt}`}
+        >
+          <img src={img.src} alt={img.alt} loading="lazy" />
+          <span className="lotus-tile-veil" aria-hidden="true">
+            {img.caption && <span className="lotus-tile-cap">{img.caption}</span>}
+            <span className="lotus-tile-zoom">⤢</span>
+          </span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function Lightbox({ images, index, onClose, onStep }: { images: GalleryImage[]; index: number; onClose: () => void; onStep: (delta: number) => void }) {
+  const img = images[index]
+  const closeRef = useRef<HTMLButtonElement | null>(null)
+  useEffect(() => {
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowRight') onStep(1)
+      if (e.key === 'ArrowLeft') onStep(-1)
+    }
+    window.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [onClose, onStep, closeRef])
+  if (!img) return null
+  return (
+    <div className="lotus-lightbox" role="dialog" aria-modal="true" aria-label={img.alt} onClick={onClose}>
+      <div className="lotus-lightbox-inner" onClick={(e) => e.stopPropagation()}>
+        <img src={img.src} alt={img.alt} />
+        <div className="lotus-lightbox-bar">
+          <p>{img.caption ?? img.alt}</p>
+          <span className="lotus-lightbox-count">
+            {index + 1} / {images.length}
+          </span>
+        </div>
+        <button type="button" ref={(el) => { closeRef.current = el }} className="lotus-lb-btn lotus-lb-close" onClick={onClose} aria-label="Close viewer">
+          ✕
+        </button>
+        <button type="button" className="lotus-lb-btn lotus-lb-prev" onClick={() => onStep(-1)} aria-label="Previous photo">
+          ←
+        </button>
+        <button type="button" className="lotus-lb-btn lotus-lb-next" onClick={() => onStep(1)} aria-label="Next photo">
+          →
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function ShowcaseCard({ project, align }: { project: LotusProject; align: 'left' | 'right' }) {
+  const highlights = project.points.slice(0, 4)
+  const more = project.points.slice(4)
+  const [expanded, setExpanded] = useState(false)
+  const [lightbox, setLightbox] = useState<number | null>(null)
+  const gallery = project.gallery ?? []
+  const bodyId = `lotus-${project.title.replace(/\W+/g, '-').toLowerCase()}`
+  return (
+    <article className={`lotus-showcase align-${align}`}>
+      <div className="lotus-copy">
+        <p className="lotus-eyebrow">{project.eyebrow}</p>
+        <h3>{project.title}</h3>
+        <p className="lotus-lede">{project.lede}</p>
+        <dl className="lotus-stats">
+          {project.stats.map((s) => (
+            <div key={s.label}>
+              <dt>{s.label}</dt>
+              <dd>{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="lotus-points">
+          {(expanded ? project.points : highlights).map((p) => (
+            <li key={p}>
+              <span className="lotus-tick" aria-hidden="true">
+                ✓
+              </span>
+              {p}
+            </li>
+          ))}
+        </ul>
+        {more.length > 0 && (
+          <button
+            type="button"
+            className="lotus-toggle"
+            aria-expanded={expanded}
+            aria-controls={bodyId}
+            onClick={() => setExpanded((v) => !v)}
+          >
+            {expanded ? 'Show fewer details' : `Show all ${project.points.length} process notes`}
+            <span aria-hidden="true">{expanded ? ' ↑' : ' ↓'}</span>
+          </button>
+        )}
+        <div id={bodyId} hidden={!expanded && more.length > 0} />
+        {project.flow && <ProcessStepper steps={project.flow} />}
+      </div>
+      <div className="lotus-media">
+        {gallery.length > 0 && (
+          <Mosaic
+            images={gallery}
+            onOpen={(i) => setLightbox(i)}
+          />
+        )}
+        {lightbox !== null && gallery[lightbox] && (
+          <Lightbox
+            images={gallery}
+            index={lightbox}
+            onClose={() => setLightbox(null)}
+            onStep={(d) => setLightbox((v) => (v === null ? v : (v + d + gallery.length) % gallery.length))}
+          />
+        )}
+      </div>
+    </article>
   )
 }
 
@@ -131,7 +280,7 @@ export function Experience() {
           </div>
         ))}
 
-        {/* Lotus IMNS — most substantial role, rendered last in timeline order (most recent first above) */}
+        {/* Lotus IMNS — most substantial role, rendered as full case studies (no click-to-reveal) */}
         <div className="tl-item">
           <div className="tl-head">
             <h3>{lotusExperience.role}</h3>
@@ -139,9 +288,11 @@ export function Experience() {
             <div className="tl-period">{lotusExperience.period}</div>
           </div>
           <p className="tl-summary">{lotusExperience.summary}</p>
-          {lotusExperience.projects.map((p) => (
-            <Expandable key={p.title} title={p.title} points={p.points} flow={p.flow} />
-          ))}
+          <div className="lotus-stack">
+            {lotusExperience.projects.map((p: LotusProject, i: number) => (
+              <ShowcaseCard key={p.title} project={p} align={i % 2 === 0 ? 'left' : 'right'} />
+            ))}
+          </div>
           <div className="tl-tags">
             {lotusExperience.tags.map((t) => (
               <span className="chip" key={t}>

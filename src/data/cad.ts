@@ -4,6 +4,8 @@
  * Every structural fact below was read out of `public/cad/centrifuge.CATProduct`
  * (ASCII feature/instance names inside the binary) and corroborated by the
  * thumbnail CATIA embedded in the file (`CATPreview` → images/centrifuge-catia-preview.jpg).
+ * The preview card now shows two CATIA V5 session screenshots (`images/catia-rotor-loading.png`
+ * and `images/catia-rotor-swingout.png`): buckets hanging (loading) and swung out (running).
  * Nothing here is invented: roles marked "(inferred)" follow from the feature
  * names, the constraint list and the 4-fold layout visible in that preview.
  */
@@ -13,7 +15,18 @@ export const cadDoc = {
   path: 'cad/centrifuge.CATProduct',
   script: 'cad/centrifuge_animate.CATScript',
   guide: 'cad/CATIA-DYNAMIC-SETUP.md',
-  preview: 'images/centrifuge-catia-preview.jpg',
+  previews: [
+    {
+      src: 'images/catia-rotor-loading.png',
+      alt: 'CATIA screenshot of the centrifuge rotor: the cross-shaped header with the four cylindrical buckets hanging in the loading position',
+      caption: 'At rest — buckets hang in the loading position',
+    },
+    {
+      src: 'images/catia-rotor-swingout.png',
+      alt: 'CATIA screenshot of the centrifuge rotor: the four buckets swung out to the 90° stop at running speed',
+      caption: 'At speed — buckets swing out to the 90° stop',
+    },
+  ],
   app: 'CATIA V5 — Dassault Systèmes',
   release: 'V5R32 · SP6 · HF0',
   build: '03-01-2024.22.10',

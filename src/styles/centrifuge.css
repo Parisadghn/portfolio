@@ -114,7 +114,10 @@
 .cad-bk-name { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text); }
 .cad-bk-src { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-faint); text-align: right; }
 
-.cad-preview { width: 100%; max-width: 260px; margin: 0 auto; border: 1px solid var(--border-bright); border-radius: 6px; image-rendering: pixelated; }
+.cad-previews { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.cad-preview-fig { margin: 0; min-width: 0; }
+.cad-preview { width: 100%; display: block; border: 1px solid var(--border-bright); border-radius: 6px; background: #10131a; }
+.cad-preview-fig figcaption { font-family: var(--font-mono); font-size: 0.64rem; line-height: 1.5; color: var(--text-faint); margin-top: 6px; }
 
 .cad-notes { margin: 22px 0 0; padding-left: 20px; display: grid; gap: 6px; color: var(--text-faint); font-size: 0.78rem; }
 .cad-notes li::marker { color: var(--accent-dim); }

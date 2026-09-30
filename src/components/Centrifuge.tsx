@@ -420,17 +420,19 @@ const CadDossier = memo(function CadDossier() {
 
       <div className="cad-card">
         <h3>
-          CATIA preview <span className="cad-card-note">stored in the file</span>
+          CATIA preview <span className="cad-card-note">two views from the session</span>
         </h3>
-        <img
-          className="cad-preview"
-          src={cadDoc.preview}
-          alt="CATIA thumbnail of the centrifuge rotor: a cross-shaped header with four hanging cylindrical buckets"
-          loading="lazy"
-        />
+        <div className="cad-previews">
+          {cadDoc.previews.map((p) => (
+            <figure key={p.src} className="cad-preview-fig">
+              <img className="cad-preview" src={p.src} alt={p.alt} loading="lazy" />
+              <figcaption>{p.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
         <p className="cad-card-foot">
-          The thumbnail CATIA embedded in {cadDoc.file} (CATPreview stream) — the “+” header and the four buckets in the
-          loading position.
+          Two CATIA V5 screenshots of {cadDoc.file}: the “+” header with the four buckets hanging in the loading
+          position and swung out to the 90° stop at running speed.
         </p>
       </div>
     </aside>

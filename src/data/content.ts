@@ -36,13 +36,20 @@ export const heroPanel = [
   },
 ]
 
+export interface GalleryImage {
+  /** path relative to the site root (public/ folder) */
+  src: string
+  alt: string
+  caption?: string
+}
+
 export interface ExperienceItem {
   role: string
   org: string
   period: string
   kind: 'engineering' | 'teaching'
   summary: string
-  projects: { title: string; points: string[]; flow?: string[] }[]
+  projects: { title: string; points: string[]; flow?: string[]; gallery?: GalleryImage[] }[]
   tags: string[]
 }
 
