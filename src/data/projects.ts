@@ -78,7 +78,7 @@ export const projects: Project[] = [
     title: 'Graph Convolutional Networks',
     categories: ['Machine Learning', 'Physics'],
     flagship: true,
-    description: 'Authored a research paper on GCNs and their applications in complex systems.',
+    description: 'Presentation on GCNs and their applications in complex systems.',
     detail: ['Graph neural networks operating on irregular, relational structure.', 'Applications to complex-system analysis.'],
     tech: ['GCN', 'Graph Neural Networks', 'Complex Systems'],
     link: '[ADD PAPER LINK]',
