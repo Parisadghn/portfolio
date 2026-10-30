@@ -1,0 +1,90 @@
+/* ── Projects explorer ─────────────────────────────────────── */
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.filter-btn {
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border-bright);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-dim);
+  transition: all 0.25s;
+}
+.filter-btn:hover { border-color: rgba(255, 255, 255, 0.3); color: var(--text); }
+.filter-btn.active { background: var(--text); border-color: var(--text); color: #08080f; font-weight: 600; }
+
+.flag-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 14px; }
+.flag-card { display: flex; flex-direction: column; grid-column: span 2; }
+/* rhythm: a wide pair after every three cards */
+.flag-card:nth-child(5n + 4), .flag-card:nth-child(5n + 5) { grid-column: span 3; }
+/* however the filter leaves the last row, it stays full */
+.flag-card:last-child:nth-child(5n + 1), .flag-card:last-child:nth-child(5n + 4) { grid-column: span 6; }
+.flag-card:nth-last-child(2):nth-child(5n + 1), .flag-card:last-child:nth-child(5n + 2) { grid-column: span 3; }
+@media (max-width: 1040px) {
+  .flag-grid { grid-template-columns: 1fr 1fr; }
+  .flag-card, .flag-card:nth-child(5n + 4), .flag-card:nth-child(5n + 5),
+  .flag-card:last-child:nth-child(5n + 1), .flag-card:last-child:nth-child(5n + 4),
+  .flag-card:nth-last-child(2):nth-child(5n + 1), .flag-card:last-child:nth-child(5n + 2) { grid-column: span 1; }
+}
+@media (max-width: 680px) { .flag-grid { grid-template-columns: 1fr; } }
+.flag-card:hover { border-color: var(--border-bright); transform: translateY(-5px); box-shadow: var(--glow); }
+.flag-viz {
+  position: relative;
+  padding: 18px 14px;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 80% 90% at 50% 120%, rgba(155, 124, 255, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 70% at 10% -10%, rgba(45, 226, 190, 0.12), transparent 70%),
+    rgba(8, 8, 15, 0.5);
+}
+.flag-viz svg { width: 100%; height: 148px; display: block; }
+.flag-body { padding: 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.flag-body h3 { font-family: var(--font-display); font-size: 1.28rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.22; }
+.flag-desc { color: var(--text-dim); font-size: 0.93rem; line-height: 1.55; }
+.flag-more summary {
+  width: fit-content;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text-faint);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s;
+}
+.flag-more summary::-webkit-details-marker { display: none; }
+.flag-more summary::after { content: ' +'; }
+.flag-more[open] summary::after { content: ' −'; }
+.flag-more summary:hover { color: var(--text); }
+.flag-detail { color: var(--text-dim); font-size: 0.86rem; padding-left: 18px; margin-top: 8px; display: grid; gap: 5px; animation: fadeIn 0.3s ease; }
+.flag-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
+
+.compact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 1000px) { .compact-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .compact-grid { grid-template-columns: 1fr; } }
+.compact-card { padding: 16px 18px; border-radius: 16px; }
+.compact-card:hover { transform: translateY(-3px); }
+.compact-card h4 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 4px; }
+.compact-card p { color: var(--text-dim); font-size: 0.82rem; line-height: 1.5; }
+.compact-cats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.mini-chip { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-faint); }
+
+/* ── Skills ────────────────────────────────────────────────── */
+.skill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .skill-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .skill-grid { grid-template-columns: 1fr; } }
+.skill-box { padding: 22px; }
+.skill-box h3 { font-family: var(--font-display); font-size: 1.12rem; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.skill-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-toggle { background: none; border: none; color: var(--text-faint); font-family: var(--font-mono); font-size: 0.7rem; white-space: nowrap; }
+.skill-toggle:hover { color: var(--accent); }
+.extra-anim { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } }
+
+/* ── Certifications ────────────────────────────────────────── */
+.cert-wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 900px) { .cert-wall { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .cert-wall { grid-template-columns: 1fr; } }
+.cert-item { padding: 16px 18px; border-radius: 16px; }
+.cert-item:hover { transform: translateY(-3px); }
+.cert-name { font-size: 0.94rem; font-weight: 600; line-height: 1.4; margin-bottom: 3px; }
+.cert-issuer { font-size: 0.84rem; color: var(--text-dim); }
+.cert-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-faint); margin-top: 3px; }

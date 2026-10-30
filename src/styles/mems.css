@@ -1,0 +1,79 @@
+/* ── MEMS Simulation Application · featured section ─────────── */
+.mems-card { padding: 24px; }
+.mems-card h3 { font-family: var(--font-display); font-size: 1.28rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+
+.mems-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.mems-feature { display: flex; flex-direction: column; gap: 8px; }
+.mems-feature p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.55; }
+.mems-feature-index { font-family: var(--font-mono); font-size: 0.74rem; background: var(--film); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* process rail */
+.mems-steps {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(19, 19, 31, 0.6);
+}
+.mems-steps li { counter-increment: step; padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 4px; }
+.mems-steps li + li { border-left: 1px solid var(--border); }
+.mems-steps strong { font-family: var(--font-display); font-size: 1.04rem; font-weight: 600; letter-spacing: -0.01em; }
+.mems-steps span { color: var(--text-faint); font-size: 0.82rem; line-height: 1.45; }
+
+.mems-lower { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; align-items: stretch; }
+.mems-side { display: grid; gap: 14px; min-width: 0; }
+
+/* KOH demo */
+.koh-demo { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.koh-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.koh-head p { color: var(--text-dim); font-size: 0.92rem; margin-top: 4px; }
+.koh-play { flex-shrink: 0; padding: 8px 18px; font-size: 0.86rem; }
+.koh-svg { display: block; width: 100%; height: auto; border-radius: 14px; background: #0a0a13; border: 1px solid var(--border); }
+.koh-label { font-family: var(--font-sans); font-size: 12px; fill: var(--text-dim); }
+.koh-label-accent { fill: var(--accent); }
+.koh-label-gold { fill: var(--gold); }
+.koh-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+.koh-controls label { display: flex; flex-direction: column; gap: 6px; font-size: 0.86rem; color: var(--text-dim); }
+.koh-controls strong { color: var(--text); font-weight: 600; }
+.koh-controls input[type='range'] { width: 100%; accent-color: var(--accent); height: 22px; cursor: pointer; }
+.koh-readout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.koh-readout div { padding: 10px 14px; border: 1px solid var(--border); border-radius: 12px; background: rgba(8, 8, 15, 0.45); display: flex; flex-direction: column-reverse; }
+.koh-readout dd { font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.koh-readout dt { color: var(--text-faint); font-size: 0.76rem; }
+.koh-status { font-size: 0.92rem; padding-left: 12px; border-left: 2px solid; min-height: 2.9em; }
+.koh-teal { border-color: var(--accent); }
+.koh-gold { border-color: var(--gold); }
+.koh-rose { border-color: var(--rose); }
+.koh-note { color: var(--text-faint); font-size: 0.78rem; }
+
+/* results + model */
+.mems-results, .mems-model { display: flex; flex-direction: column; gap: 10px; }
+.mems-results p, .mems-model p { color: var(--text-dim); font-size: 0.92rem; }
+.mems-results p.mems-small, .mems-model p.mems-small { color: var(--text-faint); font-size: 0.8rem; line-height: 1.5; }
+.mems-results table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.mems-results th, .mems-results td { text-align: left; padding: 8px 8px 8px 0; border-bottom: 1px solid var(--border); font-weight: 400; color: var(--text-dim); vertical-align: top; }
+.mems-results thead th { color: var(--text-faint); font-size: 0.76rem; }
+.mems-results tbody th { color: var(--text); font-weight: 500; }
+.mems-results td.val { font-family: var(--font-display); font-weight: 600; font-size: 1.04rem; color: var(--accent); white-space: nowrap; }
+.mems-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+
+@media (max-width: 1040px) {
+  .mems-features { grid-template-columns: 1fr 1fr; }
+  .mems-steps { grid-template-columns: repeat(3, 1fr); }
+  .mems-steps li:nth-child(4) { border-left: none; }
+  .mems-steps li:nth-child(n + 4) { border-top: 1px solid var(--border); }
+  .mems-lower { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .mems-features { grid-template-columns: 1fr; }
+  .mems-steps { grid-template-columns: 1fr 1fr; }
+  .mems-steps li:nth-child(n) { border-left: none; border-top: none; }
+  .mems-steps li:nth-child(even) { border-left: 1px solid var(--border); }
+  .mems-steps li:nth-child(n + 3) { border-top: 1px solid var(--border); }
+  .koh-controls { grid-template-columns: 1fr; }
+  .mems-card { padding: 18px; }
+}

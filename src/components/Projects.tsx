@@ -1,0 +1,107 @@
+import { useMemo, useState } from 'react'
+import { projects, projectCategories, type Project } from '../data/projects'
+import { Section } from './ui'
+import { Viz } from './Viz'
+
+function LinkOrPlaceholder({ project }: { project: Project }) {
+  if (!project.link) return null
+  const label = project.linkLabel ?? 'Link'
+  if (project.link.startsWith('[')) return null // awaiting a real URL; don't show the placeholder to visitors
+  if (project.link.startsWith('#')) {
+    return (
+      <a className="chip chip-accent" href={project.link}>
+        {label} →
+      </a>
+    )
+  }
+  return (
+    <a className="chip chip-accent" href={project.link} target="_blank" rel="noreferrer">
+      {label} ↗
+    </a>
+  )
+}
+
+export function Projects() {
+  const [filter, setFilter] = useState<(typeof projectCategories)[number]>('All')
+
+  const { flagship, compact } = useMemo(() => {
+    const f = projects.filter((p) => filter === 'All' || p.categories.includes(filter as Project['categories'][number]))
+    return { flagship: f.filter((p) => p.flagship), compact: f.filter((p) => !p.flagship) }
+  }, [filter])
+
+  return (
+    <Section
+      id="projects"
+      kicker="06 · Project Explorer"
+      title={<>Research & <em>Projects</em></>}
+      intro="Computational, experimental, and applied work. Flagship projects are shown in detail; the full database follows below."
+    >
+      <div className="filter-bar" role="tablist" aria-label="Filter projects by category">
+        {projectCategories.map((c) => (
+          <button
+            key={c}
+            type="button"
+            role="tab"
+            aria-selected={filter === c}
+            className={`filter-btn ${filter === c ? 'active' : ''}`}
+            onClick={() => setFilter(c)}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
+      <div className="flag-grid">
+        {flagship.map((p) => (
+          <article className="flag-card" key={p.title}>
+            {p.viz && (
+              <div className="flag-viz">
+                <Viz kind={p.viz} />
+              </div>
+            )}
+            <div className="flag-body">
+              <h3>{p.title}</h3>
+              <p className="flag-desc">{p.description}</p>
+              {p.detail && (
+                <details className="flag-more">
+                  <summary>How it works</summary>
+                  <ul className="flag-detail">
+                    {p.detail.map((d) => (
+                      <li key={d}>{d}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+              <div className="flag-tech">
+                {p.tech.map((t) => (
+                  <span className="chip" key={t}>
+                    {t}
+                  </span>
+                ))}
+                <LinkOrPlaceholder project={p} />
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {compact.length > 0 && (
+        <div className="compact-grid">
+          {compact.map((p) => (
+            <article className="compact-card" key={p.title}>
+              <h4>{p.title}</h4>
+              <p>{p.description}</p>
+              <div className="compact-cats">
+                {p.categories.map((c) => (
+                  <span className="mini-chip" key={c}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </Section>
+  )
+}
